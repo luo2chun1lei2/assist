@@ -3,8 +3,10 @@
 #include <getopt.h>
 #include <stdlib.h>
 
-#include "interfaces.h"
-#include "engine.h"
+#include "MyEngine.h"
+#include "MyControl.h"
+#include "MyStorage.h"
+#include "MyView.h"
 
 static const char *_sopts = "hf:u:r:t:l:w:a:";
 static const struct option _lopts[] = { {"help", no_argument, 0, 'h'},
@@ -29,6 +31,7 @@ static void print_usage_and_exit(const char *prog, int code)
 {
 	fprintf(stderr, usage, prog);
 	exit(code);
+	
 }
 
 int main(int argc, char *argv[])
@@ -59,7 +62,14 @@ int main(int argc, char *argv[])
     dot.show();
     dot.close(); */
 
-    MyEngine engine("");
-    
+	MyEngine engine;
+	MyControl control;
+	MyView view;
+	MyStorage storage;
+	
+	engine.addControl(&control);
+	engine.addView(&view);
+	engine.addStorage(&storage);
+
 	return 0;
 }
