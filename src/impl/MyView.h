@@ -2,6 +2,7 @@
 
 #include "interfaces.h"
 
-class MyView: public IView
-{
+class MyView:public IView {
+public:
+    virtual void show();
 };

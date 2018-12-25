@@ -6,8 +6,8 @@ STRIP=objcopy --strip-all --strip-debug
 FORMAT=indent
 
 TARGET=assist
-CPP_FLAGS=-g
-CC_FLAGSS=-g
+CPP_FLAGS=-g -Wall -Wextra
+CC_FLAGSS=-g -Wall -Wextra
 LDFLAGS=-g
 
 SRC_FOLDER=./ fwk impl
@@ -45,8 +45,12 @@ build: ${SRC_C_OBJ} ${SRC_CC_OBJ}
 run: build
 	@out/${TARGET}
 
+debug: build
+	gdb out/${TARGET}.unstrip
+
 clean:
-	@rm -rf out *~
+	@rm -rf out
+	@find -name "*~" | xargs rm -f
 
 # format all sources.
 format:

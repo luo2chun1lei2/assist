@@ -21,8 +21,7 @@ static const struct option _lopts[] = { {"help", no_argument, 0, 'h'},
 };
 
 static const char *usage =
-    "Usage: %s [options]\n"
-    "\n"
+    "Usage: %s [options]\n\n"
     "options:\n"
     "  -h, --help            prints this message and exit\n"
     "  -a, --arg             start app with this argument.\n" "\n";
@@ -31,7 +30,7 @@ static void print_usage_and_exit(const char *prog, int code)
 {
 	fprintf(stderr, usage, prog);
 	exit(code);
-	
+
 }
 
 int main(int argc, char *argv[])
@@ -56,20 +55,27 @@ int main(int argc, char *argv[])
 		}
 	}
 
-/**
-    Dot dot;
-    dot.create("invoke function");
-    dot.show();
-    dot.close(); */
+	IEngine *p_engine = new MyEngine();
+	IControl *p_control = new MyControl();
+	IView *p_view = new MyView();
+	IStorage *p_storage = new MyStorage();
 
-	MyEngine engine;
-	MyControl control;
-	MyView view;
-	MyStorage storage;
-	
-	engine.addControl(&control);
-	engine.addView(&view);
-	engine.addStorage(&storage);
+	p_engine->addControl(p_control);
+	p_engine->addView(p_view);
+	p_engine->addStorage(p_storage);
+
+	p_control->addElement("node1");
+	p_control->addElement("node2");
+	p_control->addElement("node3");
+
+	p_control->addEdge("node1", "node2");
+	p_control->addEdge("node1", "node3");
+	p_control->addEdge("node2", "node3");
+
+	// TODO whether or not view should be shown automatically.
+	p_engine->show();
+
+	// TOOD release all resources.
 
 	return 0;
 }
